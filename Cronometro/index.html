@@ -4,17 +4,82 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <title>Cronometro</title>
 </head>
 <body>
-    <form name="form-main">
+    <form name="form_main">
         <div>
-            <span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+            <span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>:<span id="mili">000</span>
         </div>
         <br>
-        <button type="button" name="start">Iniciar</button> 
-        <button type="button" name="pause">Pausar</button>
-        <button type="button" name="reset">Encerrar</button>
+        <div class="buttons">
+            <button type="button" name="start">Iniciar</button> 
+            <button type="button" name="pause">Pausar</button>
+            <button type="button" name="reset">Encerrar</button>
+        </div>
     </form>
+    <script>
+        "use strict";
+
+        let hour = 0;
+        let min = 0;
+        let sec = 0;
+        let mili = 0;
+
+        let cron;
+
+        document.form_main.start.onclick = () => start();
+        document.form_main.pause.onclick = () => pause();
+        document.form_main.reset.onclick = () => reset();
+
+        function start() {
+        pause();
+        cron = setInterval(() => { timer(); }, 10);
+        }
+
+        function pause() {
+        clearInterval(cron);
+        }
+
+        function reset() {
+        hour = 0;
+        min = 0;
+        sec = 0;
+        mili = 0;
+        document.getElementById('hour').innerText = '00';
+        document.getElementById('min').innerText = '00';
+        document.getElementById('sec').innerText = '00';
+        document.getElementById('mili').innerText = '000';
+
+        pause()
+        }
+
+        function timer() {
+        if ((mili += 10) == 1000) {
+            mili = 0;
+            sec++;
+        }
+        if (sec == 60) {
+            sec = 0;
+            min++;
+        }
+        if (min == 60) {
+            min = 0;
+            hour++;
+        }
+        document.getElementById('hour').innerText = returnData(hour);
+        document.getElementById('min').innerText = returnData(min);
+        document.getElementById('sec').innerText = returnData(sec);
+        document.getElementById('mili').innerText = returnData(mili);
+        }
+
+        function returnData(input) {
+        return input > 10 ? input : `0${input}`
+        }
+    </script>
 </body>
 </html>

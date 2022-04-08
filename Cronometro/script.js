@@ -3,6 +3,7 @@
 let hour = 0;
 let min = 0;
 let sec = 0;
+let mili = 0;
 
 let cron;
 
@@ -22,13 +23,15 @@ function pause(){
 }
 
 function reset(){
-    hour=0;
-    min=0;
-    sec=0;
+    hour = 0;
+    min = 0;
+    sec = 0;
+    mili = 0;
 
     document.getElementById('hour').innerText("00");
     document.getElementById('min').innerText("00");
     document.getElementById("sec").innerText("00");
+    document.getElementById("mili").innerText("000");
 }
 
 function returnData(){
@@ -36,9 +39,13 @@ function returnData(){
 }
 
 function timer(){
-    if(second == 60){
-        second=0;
-        minute++;
+    if((mili += 10)==1000){
+        mili = 0;
+        sec++;
+    }
+    if(sec == 60){
+        sec=0;
+        min++;
     }
     if(min == 60){
         min=0;
@@ -48,4 +55,5 @@ function timer(){
     document.getElementById('hour').innerText = returnData(hour);
     document.getElementById('min').innerText = returnData(min);
     document.getElementById('sec').innetText = returnData(sec);
+    document.getElementById('mili').innerText = returnData(mili);
 }
