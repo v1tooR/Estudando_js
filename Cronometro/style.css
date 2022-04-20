@@ -20,6 +20,10 @@ div{
     align-items: center;
     text-align: center;
 }
+.buttons a{
+    align-items: center;
+    text-align: center;
+}
 
 button{
     background: none;
@@ -30,6 +34,12 @@ button{
 button:hover{
     color: rgb(255, 119, 50);
     transition: 0.7s;
+}
+
+a{
+    text-decoration: none;
+    font-size: 2vh;
+    align-items: center;
 }
 
 @media screen and (max-width: 900px){
@@ -44,3 +54,5 @@ button:hover{
         font-size: 4vh;
     }
 }
+
+
